@@ -5,17 +5,16 @@ from shoppies.api.serializers import AwardsSerializer
 from django.http import HttpResponse
 from rest_framework import status
 
-@api_view(['GET', 'POST',])
+@api_view(['GET', 'POST'])
 def awards_api(request):
     value = request.headers['userID']
-
+    print('userid', value)
     try:
         awards = Awards.objects.filter(userID=value)
     except Awards.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        print(value, request.headers['userid'], 'this is the headers')
         serializer = AwardsSerializer(awards, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
@@ -37,22 +36,23 @@ def award_api(request, pk):
 
     elif request.method == 'DELETE':
         award.delete()    
-        return Response("Movie Deselected")
+        return Response({ "message": "Movie Deselected"})
 
 
 
 
 @api_view(['GET'])
 def awards_all_api(request):
-    value = request.headers['admin']
-
+    value = request.headers['role']
     try:
         awards = Awards.objects.all()
+        print('it is in the IFFY', value == "admin")
     except Awards.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    if request.method == 'GET' and value == True:
-        serializer = AwardsSerializer(awards, many=True)
-        return Response(serializer.data)
-    else:
-        return Response("You Cannot Access The Nominations")
+    if request.method == 'GET':
+        if value == 'admin':
+            serializer = AwardsSerializer(awards, many=True)
+            return Response(serializer.data)
+        else:
+            return Response({"message": "You Cannot Access Nominations"})
