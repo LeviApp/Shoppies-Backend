@@ -20,7 +20,10 @@ def awards_api(request):
     elif request.method == 'POST':
         serializer = AwardsSerializer(data=request.data)
         if serializer.is_valid():
+            print(serializer, 'is valid')
             serializer.save()
+        else:
+            print('it isnt valid!', request.headers)
         return Response(serializer.data)
 
 @api_view(['GET', "DELETE"])
