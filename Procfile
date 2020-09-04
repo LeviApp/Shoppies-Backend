@@ -1,1 +1,1 @@
-web: gunicorn shoppiesbackend.wsgi
+web: gunicorn shoppiesbackend.wsgi:application
