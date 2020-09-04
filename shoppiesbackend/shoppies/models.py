@@ -4,31 +4,13 @@ from django.contrib.postgres.fields import ArrayField, JSONField
 # Create your models here.
 
 class Awards(models.Model):
-    userID = models.CharField(max_length=20)
-    Title = models.CharField(max_length=200, null=True)
-    Year = models.CharField(max_length=10, null=True)
-    Rated = models.CharField(max_length=10, null=True)
-    Released = models.CharField(max_length=20, null=True)
-    Runtime = models.CharField(max_length=20, null=True)
-    Genre = models.CharField(max_length=200, null=True)
-    Director = models.CharField(max_length=50, null=True)
-    Writer = models.TextField(null=True)
-    Actors = models.TextField(null=True)
-    Plot = models.TextField(null=True)
-    Language = models.CharField(max_length=200, null=True)
-    Country = models.CharField(max_length=200, null=True)
-    Awards = models.CharField(max_length=200, null=True)
-    Poster = models.TextField(null=True)
-    Ratings = models.TextField(null=True)
-    Metascore = models.CharField(max_length=10, null=True)
-    imdbID = models.CharField(max_length=20, null=True)
-    Type = models.CharField(max_length=20, null=True)
-    DVD = models.CharField(max_length=20, null=True)
-    BoxOffice = models.CharField(max_length=20, null=True)
-    Production = models.CharField(max_length=20, null=True)
-    Website = models.TextField(null=True)
-    Response = models.CharField(max_length=10, null=True)
-
+    userID = models.CharField(max_length=20, default="----")
+    Poster = models.TextField(default="----")
+    Title = models.CharField(max_length=200, default="----")
+    Type = models.CharField(max_length=20, default="----")
+    Year = models.CharField(max_length=10, default="----")
+    imdbID = models.CharField(max_length=20, default="----")
+   
     def __str__(self):
         return self.Title
 
